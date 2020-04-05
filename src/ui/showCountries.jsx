@@ -1,42 +1,71 @@
-import React, { useEffect, useState } from "react";
-// import GetWorldTotals from "../logic/GetWorldTotals";
+import React, { useState, useEffect } from "react";
+import _ from "lodash";
+
 import GetAllCountryData from "../logic/GetAllCountryData";
+import TableHeader from "../reusable/tableHeader";
+import TableBody from "../reusable/tableBody";
 
 const ShowCountries = () => {
   const { status, countries, count } = GetAllCountryData();
-  // const [countries, setCountries] = useState([]);
-  const tablehead = [
-    { id: 1, label: "Country" },
-    { id: 2, label: "Confirmed" },
-    { id: 3, label: "Deaths" },
-    { id: 4, label: "Recovered" }
+  const [alteredCountries, setAlteredCountries] = useState(countries);
+  const [sortColumn, setSortColumn] = useState({
+    path: "name",
+    order: "asc"
+  });
+
+  const tableInfo = [
+    { id: 1, title: "Country", path: "name" },
+    { id: 2, title: "Confirmed", path: "confirmed" },
+    { id: 3, title: "Deaths", path: "deaths" },
+    { id: 4, title: "Recovered", path: "recovered" },
+    {
+      id: 5,
+      title: "Last Updated",
+      path: "lastUpdate",
+      content: time => new Date(time).toLocaleString() //toLocaleTimeString()
+    }
   ];
 
-  const tablebody = [
-    { label: "name" },
-    { label: "confirmed" },
-    { label: "deaths" },
-    { label: "recovered" }
-  ];
+  useEffect(() => {
+    const sorted = _.orderBy(
+      countries,
+      [_.get(sortColumn, "path")],
+      [_.get(sortColumn, "order")]
+    );
 
-  // useEffect(() => {},[]);
-  console.log(status);
+    setAlteredCountries(sorted);
+  }, [sortColumn, countries]);
 
   if (status === "idle") return <p>Initializing...</p>;
   if (status === "pending") return <p>Loading...</p>;
 
-  if (status === "resolved")
+  if (status === "resolved") {
     return (
-      <>
-        <table>
-          <thead>
-            <tr>
-              {tablehead.map(head => (
-                <th key={head.id}>{head.label}</th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
+      <main className="container">
+        <table className="table table-striped table-sm">
+          <TableHeader
+            columnNames={tableInfo}
+            id="id"
+            title="title"
+            path="path"
+            sortColumn={sortColumn}
+            handleSort={setSortColumn}
+          />
+          <TableBody
+            rowData={alteredCountries}
+            cellData={tableInfo}
+            rowKey="iso3"
+            cellKey="path"
+          />
+        </table>
+      </main>
+    );
+  }
+};
+
+export default ShowCountries;
+
+/* <tbody>
             {countries.map(country => (
               <tr key={country.iso3}>
                 {tablebody.map(data => (
@@ -46,11 +75,4 @@ const ShowCountries = () => {
                 ))}
               </tr>
             ))}
-          </tbody>
-        </table>
-        {/* <pre>{JSON.stringify(countries, null, 2)}</pre> */}
-      </>
-    );
-};
-
-export default ShowCountries;
+          </tbody> */

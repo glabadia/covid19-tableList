@@ -22,9 +22,9 @@ export default function GetWorldTotals() {
       data = data.filter(data => data !== undefined);
 
       const dataCountries = await getTotalCount(data);
-      console.log(dataCountries);
+      // console.log(dataCountries);
 
-      // setTotal(dataCountries);
+      setTotal(dataCountries);
       setStatus("resolved");
     })();
   }, []);

@@ -5,7 +5,7 @@ import {
   populatedCountries
 } from "../utils/getCountries";
 
-export default function GetWorldTotals() {
+export default function GetAllCountryData() {
   const [countries, setCountries] = useState([]);
   const [count, setCount] = useState(0);
   const [status, setStatus] = useState("idle");

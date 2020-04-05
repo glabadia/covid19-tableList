@@ -34,7 +34,7 @@ export const populatedCountries = async data => {
         confirmed: confirmed["value"],
         deaths: deaths["value"],
         recovered: recovered["value"],
-        lastUpdate
+        lastUpdate: new Date(lastUpdate).getTime()
       };
     }
   });
