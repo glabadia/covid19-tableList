@@ -41,7 +41,7 @@ const ShowCountries = () => {
 
   if (status === "resolved") {
     return (
-      <main className="container">
+      <>
         <table className="table table-striped table-sm">
           <TableHeader
             columnNames={tableInfo}
@@ -58,7 +58,7 @@ const ShowCountries = () => {
             cellKey="path"
           />
         </table>
-      </main>
+      </>
     );
   }
 };

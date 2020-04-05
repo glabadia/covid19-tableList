@@ -26,6 +26,7 @@ export const InfoGrid = styled.div`
 export const HeaderInfo = styled.div`
   background: #f2f2f2;
   border-radius: 0.5rem;
+  text-align: center;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   font-size: ${props => (props.title ? "3rem" : "1rem")};

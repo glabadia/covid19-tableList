@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 
 import { InfoBlock, InfoGrid, HeaderInfo } from "../styles/presentationStyles";
 import GetWorldTotals from "../logic/GetWorldTotals";
